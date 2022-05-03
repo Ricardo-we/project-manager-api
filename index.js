@@ -25,6 +25,7 @@ async function main(){
     try{
         // await syncTables();
         app.listen(APP_PORT);
+        sequelize.authenticate();
         console.log('Server on http://localhost:' + APP_PORT)
 
     }catch(e){
