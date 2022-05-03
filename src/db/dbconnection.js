@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
+import { config } from 'dotenv';
 
-export const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: './db.sqlite'
-})
+config();
+
+export const sequelize = new Sequelize(process.env.DB_URL);

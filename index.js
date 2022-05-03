@@ -7,10 +7,19 @@ import { Task } from "./src/models/Task.js";
 const APP_PORT = 5000 || process.env.port;
 
 const syncTables = async () => {
-    await User.sync({ alter: true })
-    await Task.sync({ alter: true });
-    await Project.sync({ alter: true })
+    await User.sync()
+    await Task.sync();
+    await Project.sync()
 }
+
+app.get('/sync-tables', async (req, res) => {
+    try {
+        await syncTables();
+        res.json({message: 'Tables sync'})
+    } catch(error){
+        res.json({error: error.toString()})
+    }
+})
 
 async function main(){
     try{
