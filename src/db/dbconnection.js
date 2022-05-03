@@ -4,6 +4,4 @@ import * as pg from 'pg';
 
 config();
 
-export const sequelize = new Sequelize(process.env.DB_URL, {
-    dialectModule: pg
-});
+export const sequelize = new Sequelize(process.env.DB_URL);

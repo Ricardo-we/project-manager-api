@@ -7,9 +7,9 @@ import { Task } from "./src/models/Task.js";
 const APP_PORT = 5000 || process.env.port;
 
 const syncTables = async () => {
-    await User.sync()
+    await User.sync();
+    await Project.sync();
     await Task.sync();
-    await Project.sync()
 }
 
 app.get('/sync-tables', async (req, res) => {
@@ -25,7 +25,7 @@ async function main(){
     try{
         // await syncTables();
         app.listen(APP_PORT);
-        sequelize.authenticate();
+        // sequelize.authenticate();
         console.log('Server on http://localhost:' + APP_PORT)
 
     }catch(e){
