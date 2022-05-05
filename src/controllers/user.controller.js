@@ -31,7 +31,7 @@ export async function addUser(req, res){
     try{
         const { username, password } = req.body;
         
-        if(!username || !password) return res.json({message: 'username and password required'});
+        if(!username || !password) throw new Error('Not username or password');
 
         const newUser = await User.create({
             username,
