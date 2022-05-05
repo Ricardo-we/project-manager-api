@@ -24,6 +24,7 @@ export const Task = sequelize.define('task', {
     },
 
     taskTimeEnd: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     }
 })

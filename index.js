@@ -9,7 +9,7 @@ const APP_PORT = 5000 || process.env.port;
 const syncTables = async () => {
     await User.sync();
     await Project.sync();
-    await Task.sync();
+    await Task.sync({ alter: true });
 }
 
 app.get('/sync-tables', async (req, res) => {
@@ -32,5 +32,10 @@ async function main(){
         console.log(e)
     }
 }
+
+// CONTROLLERS-SCHEMA
+// GET CLIENT DATA
+// VALIDATE DATA
+// RUN DB QUERY
 
 main();

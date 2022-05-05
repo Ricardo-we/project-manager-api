@@ -27,12 +27,13 @@ export async function getProject(req, res) {
 export async function addProject(req, res) {
     try {
         const { name, description, user_id } = req.body
-        const newProject = await Project.create({
-            name,
-            description,
-            user_id: user_id
-        })
-        return res.json(newProject)
+        const projectData = { user_id, name }
+        // VALIDATIONS
+        if(!user_id || !name) return res.json({message: 'user_id is required'});
+        if(description) projectData.description = description;
+
+        const newProject = await Project.create(projectData);
+        return res.json(newProject);
     } catch (error) {
         res.status(500).json({ error: error.toString() });
     }

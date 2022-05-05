@@ -30,6 +30,9 @@ export async function getUser(req, res){
 export async function addUser(req, res){
     try{
         const { username, password } = req.body;
+        
+        if(!username || !password) return res.json({message: 'username and password required'});
+
         const newUser = await User.create({
             username,
             password
@@ -59,12 +62,18 @@ export async function updateUser(req, res){
     try {
         const { username, password } = req.body;
         const id = req.params.userId;
-        const userData = await User.update({ username, password },{ 
+        const userData = {};
+        
+        if(!id) return res.json({message: 'User id required'});
+        if(username) userData.username = username;
+        if(password) userData.password = password;
+
+        const updatedUser = await User.update(userData,{ 
             where: { 
                 id 
             } 
         })
-        res.json(userData);
+        res.json(updatedUser);
     }catch(error){
         res.status(500).json({error: error.toString()})
     }

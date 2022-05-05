@@ -26,13 +26,14 @@ export async function getTask(req, res){
 export async function addTask(req, res){
     try {
         const { name, description, taskTimeEnd, project_id } = req.body
-        const newTask = await Task.create({
-            name, 
-            description, 
-            project_id, 
-            taskTimeEnd
-        })  
-        return res.json(newTask)
+        const taskData = {project_id, name};
+        // VALIDATIONS
+        if(!project_id || !name) return res.json({ message: 'project_id, name required' });
+        if(description) taskData.description = description;
+        if(taskTimeEnd) taskData.taskTimeEnd = taskTimeEnd;
+
+        const newTask = await Task.create(taskData);  
+        return res.json(newTask);
     } catch (error) {
         res.status(500).json({error: error.toString()});
     }
